@@ -14,7 +14,7 @@ RUN curl -f -L -o /tmp/yarn.tgz https://github.com/yarnpkg/yarn/releases/downloa
 
 ENV PGDATA /var/lib/pgsql/10/data/
 
-# Install Postgres 9.6
+# Install Postgres 10
 RUN rpm -Uvh https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm && \
     yum install -y postgresql10-server postgresql10
 
