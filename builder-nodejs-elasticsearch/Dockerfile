@@ -1,4 +1,4 @@
-FROM gcr.io/jenkinsxio/builder-base:0.0.4
+FROM gcr.io/jenkinsxio/builder-jx:0.1.289
 
 COPY ./elasticsearch-init.sh /
 
