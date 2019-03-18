@@ -31,7 +31,8 @@ retry() {
     done
 }
 
-export VERSION=$1
+export BASE_VERSION=$1
+export BUILDERS_VERSION=$2
 # export RELEASE=$2
 
 export PUSH_LATEST=false
@@ -56,7 +57,8 @@ for i in $BUILDERS
 do
   echo "updating builder-${i}"
   pushd builder-${i}
-    sed -i.bak -e "s/FROM \(.*\)\/builder-\(.*\):\(.*\)/FROM jenkinsxio\/builder-\2:${VERSION}/" Dockerfile
+    sed -i.bak -e "s/FROM \(.*\)\/builder-\(.*\):\(.*\)/FROM gcr.io\/jenkinsxio\/builder-\2:${BUILDERS_VERSION}/" Dockerfile
+    sed -i.bak -e "s/FROM \(.*\)\/builder-base\(.*\):\(.*\)/FROM gcr.io\/jenkinsxio\/builder-base\2:${BASE_VERSION}/" Dockerfile
     rm Dockerfile.bak
     head -n 1 Dockerfile
   popd
@@ -71,16 +73,16 @@ do
   echo "building builder-${i}"
   pushd builder-${i}
     head -n 1 Dockerfile
-    echo "Building ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${VERSION}"
-    retry 5 docker build ${CACHE} -t ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${VERSION} -f Dockerfile .
+    echo "Building ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${BUILDERS_VERSION}"
+    retry 5 docker build ${CACHE} -t ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${BUILDERS_VERSION} -f Dockerfile .
 
     if [ "${PUSH}" = "true" ]; then
-      echo "Pushing builder-${i}:${VERSION} to ${DOCKER_REGISTRY}"
-      retry 5 docker push ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${VERSION}
+      echo "Pushing builder-${i}:${BUILDERS_VERSION} to ${DOCKER_REGISTRY}"
+      retry 5 docker push ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${BUILDERS_VERSION}
 
       if [ "${PUSH_LATEST}" = "true" ]; then
         echo "Pushing builder-${i}:latest to ${DOCKER_REGISTRY}"
-        retry 5 docker tag ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${VERSION} ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:latest
+        retry 5 docker tag ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${BUILDERS_VERSION} ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:latest
         retry 5 docker push ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:latest
       else
         echo "Not pushing the latest docker image as PUSH_LATEST=${PUSH_LATEST}"

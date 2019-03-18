@@ -1,4 +1,4 @@
-FROM jenkinsxio/builder-go:0.1.232
+FROM gcr.io/jenkinsxio/builder-go:0.1.289
 
 RUN curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" && \
   unzip awscli-bundle.zip && \
