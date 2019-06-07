@@ -2,7 +2,7 @@
 
 adduser patate
 chown -R patate /elasticsearch-6.5.4
-sudo -u patate /elasticsearch-6.5.4/bin/elasticsearch -d
+sudo -u patate ES_JAVA_OPTS="-Xms500m -Xmx500m" /elasticsearch-6.5.4/bin/elasticsearch -d
 
 i=0
 max=60
