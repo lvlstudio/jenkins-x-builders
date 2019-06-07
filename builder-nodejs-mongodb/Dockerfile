@@ -13,8 +13,11 @@ RUN curl -f -L -o /tmp/yarn.tgz https://github.com/yarnpkg/yarn/releases/downloa
 	ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn
 
 # Install MongoDB.
+
+COPY ./mongodb.repo /etc/yum.repos.d
+
 RUN yum -y update; yum clean all && \
 	yum -y install epel-release; yum clean all && \
-	yum -y install mongodb-server; yum clean all
+	yum -y install mongodb-org; yum clean all
 
 RUN mkdir -p /data/db 
