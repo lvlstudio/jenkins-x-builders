@@ -8,4 +8,5 @@ Usage:
 ```
 
 Select the BUILDER_JX_VERSION from a recent tag of the JX builder image
-https://gcr.io/jenkinsxio/builder-jx
+- Docker registry: https://gcr.io/jenkinsxio/builder-jx
+- Releases: https://github.com/jenkins-x/jenkins-x-builders/releases
