@@ -1,4 +1,6 @@
-FROM gcr.io/jenkinsxio/builder-jx:0.1.537
+FROM gcr.io/jenkinsxio/builder-jx:2.0.886-236
+
+RUN yum install -y java-1.8.0-openjdk-devel && yum clean all
 
 COPY ./elasticsearch-init.sh /
 
