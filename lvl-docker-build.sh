@@ -72,11 +72,11 @@ do
   pushd builder-${i}
     head -n 1 Dockerfile
     echo "Building ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${VERSION}"
-    retry 5 docker build ${CACHE} -t ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${VERSION}.1 -f Dockerfile .
+    retry 5 docker build ${CACHE} -t ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${VERSION} -f Dockerfile .
 
     if [ "${PUSH}" = "true" ]; then
       echo "Pushing builder-${i}:${VERSION} to ${DOCKER_REGISTRY}"
-      retry 5 docker push ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${VERSION}.1
+      retry 5 docker push ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${VERSION}
 
       if [ "${PUSH_LATEST}" = "true" ]; then
         echo "Pushing builder-${i}:latest to ${DOCKER_REGISTRY}"
