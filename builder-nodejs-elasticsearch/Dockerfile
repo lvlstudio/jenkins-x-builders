@@ -4,7 +4,7 @@ RUN yum install -y java-1.8.0-openjdk-devel && yum clean all
 
 COPY ./elasticsearch-init.sh /
 
-RUN curl -f --silent --location https://rpm.nodesource.com/setup_10.x | bash - && \
+RUN curl -f --silent --location https://rpm.nodesource.com/setup_12.x | bash - && \
   yum install -y sudo nodejs gcc-c++ make bzip2 GConf2 gtk2 chromedriver chromium xorg-x11-server-Xvfb
 
 # Yarn

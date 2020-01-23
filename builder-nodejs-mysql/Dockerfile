@@ -1,6 +1,6 @@
 FROM jenkinsxio/builder-jx:0.1.275
 
-RUN curl -f --silent --location https://rpm.nodesource.com/setup_10.x | bash - && \
+RUN curl -f --silent --location https://rpm.nodesource.com/setup_12.x | bash - && \
   yum install -y nodejs gcc-c++ make bzip2 GConf2 gtk2 chromedriver chromium xorg-x11-server-Xvfb
 
 COPY ./mysql-init.sh /
