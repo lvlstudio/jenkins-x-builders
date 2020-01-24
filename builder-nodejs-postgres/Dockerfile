@@ -1,4 +1,4 @@
-FROM gcr.io/jenkinsxio/builder-jx:2.0.1065-392
+FROM gcr.io/jenkinsxio/builder-jx:2.0.1140-472
 
 COPY ./pg-init.sh /
 
